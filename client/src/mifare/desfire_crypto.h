@@ -1,12 +1,34 @@
+/*-
+ * Copyright (C) 2010, Romain Tartiere.
+ * Copyright (C) 2021 Merlok
+ *
+ * This program is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU Lesser General Public License as published by the
+ * Free Software Foundation, either version 3 of the License, or (at your
+ * option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or
+ * FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public License for
+ * more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>
+ *
+ * $Id$
+ */
+
 #ifndef __DESFIRE_CRYPTO_H
 #define __DESFIRE_CRYPTO_H
 
 #include "common.h"
 #include "mifare.h" // structs
 #include "crc32.h"
+#include "crypto/libpcrypto.h"
 
 
 #define MAX_CRYPTO_BLOCK_SIZE 16
+#define DESFIRE_MAX_KEY_SIZE 24
 /* Mifare DESFire EV1 Application crypto operations */
 #define APPLICATION_CRYPTO_DES    0x00
 #define APPLICATION_CRYPTO_3K3DES 0x40
@@ -60,6 +82,9 @@ enum DESFIRE_CRYPTOALGO {
     T_AES = 0x03
 };
 
+int desfire_get_key_length(enum DESFIRE_CRYPTOALGO key_type);
+size_t desfire_get_key_block_length(enum DESFIRE_CRYPTOALGO key_type);
+
 enum DESFIRE_AUTH_SCHEME {
     AS_LEGACY,
     AS_NEW
@@ -102,8 +127,6 @@ typedef unsigned long DES3_KS[48][2];  /* Triple-DES key schedule */
 
 extern int Asmversion; /* 1 if we're linked with an asm version, 0 if C */
 
-void des_encrypt(void *out, const void *in, const void *key);
-void des_decrypt(void *out, const void *in, const void *key);
 void tdes_nxp_receive(const void *in, void *out, size_t length, const void *key, unsigned char iv[8], int keymode);
 void tdes_nxp_send(const void *in, void *out, size_t length, const void *key, unsigned char iv[8], int keymode);
 void Desfire_des_key_new(const uint8_t value[8], desfirekey_t key);

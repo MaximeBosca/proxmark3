@@ -3,8 +3,16 @@ All notable changes to this project will be documented in this file.
 This project uses the changelog in accordance with [keepchangelog](http://keepachangelog.com/). Please use this to write notable changes, which is not the same as git commit log...
 
 ## [unreleased][unreleased]
+ - Added one new key from gun cloner found in wild (@scott4290)
+ - Fix `hf_msdsal` standalone in simulation flow (@netxing)
+ - Added a picture viewer in QT. To be used with `hf emrtd info` (@iceman1001)
+ - Fix - move des functions to libcrypto (@merlokk)
+ - Added `CLIGetOptionList` to cliparser that makes it easier to implement text options in the cli (@merlokk) 
+ - Added experimental support for macOS users utilizing MacPorts instead of Homebrew (@linuxgemini)
+ - Added `pm3_online_check.py` - a script to verify and initialize a Proxmark3 RDV4 device (@iceman1001)
 
 ## [midsummer.4.13441][2021-06-25]
+ - Fix `hf iclass` - a crash when AA1 limit was larger than AA2 (@pcunning)
  - Added bruteforce function for the magic byte in `cmdlfnexwatch.c` and ability to clone with psk2 modulation (@Guilhem7, @MaximeBosca)
  - Changed `hw setmux` - improve user feedback for special case (@iceman1001)
  - Changed 'filename' - unified file name param across client (@iceman1001)
